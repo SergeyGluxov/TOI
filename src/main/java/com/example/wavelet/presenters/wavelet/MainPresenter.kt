@@ -6,10 +6,7 @@ import com.example.wavelet.models.Coordinate
 import com.example.wavelet.models.Function
 import com.example.wavelet.models.Image
 import com.example.wavelet.views.IMainView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import kotlin.math.*
@@ -70,13 +67,31 @@ class MainPresenter : MvpPresenter<IMainView>() {
 
     fun createWaveletTransform() {
         viewState.showProgressBar()
+
+
         GlobalScope.launch(Dispatchers.Main) {
-            job1()
-            job2()
-            job3()
-            job4()
+
+            for (i in 0 until 4) {
+                for(j in 0 until 4){
+                    JOB5(j, i)
+                }
+            }
+
             viewState.hideProgressBar()
             viewState.drawWaveletImage(convertToColor(matrixCoordinate))
+        }
+    }
+
+    private suspend fun  JOB5(i:Int, j: Int) = withContext(Dispatchers.Default) {
+        for (x in i*100 until image.width/(4-i)) {
+            for (y in j*100 until image.height/(4-j)) {
+                tau = x * dTau
+                s = y * dS + 0.001
+                matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
+            }
+        }
+        if(i>0){
+            viewState.setProgressBar(100/i)
         }
     }
 
@@ -158,4 +173,5 @@ class MainPresenter : MvpPresenter<IMainView>() {
         }
         viewState.setProgressBar(100)
     }
+
 }

@@ -30,7 +30,6 @@ class MainActivity : MvpAppCompatActivity(), IMainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainPresenter.image = Image(width, height)
         btSimpleFunc.setOnClickListener {
             mainPresenter.createSimpleFunc()
         }
