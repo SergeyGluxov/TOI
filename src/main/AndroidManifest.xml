@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presenters.sampling.SamplingActivity"></activity>
-        <activity android:name=".presenters.wavelet.MainActivity">
+        <activity android:name=".presenters.wavelet.MainActivity"></activity>
+        <activity android:name=".presenters.sampling.SamplingActivity" />
+        <activity android:name=".presenters.dpf.DfpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

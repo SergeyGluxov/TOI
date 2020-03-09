@@ -29,7 +29,7 @@
 
     <FrameLayout
         android:layout_width="500dp"
-        android:layout_height="500dp"
+        android:layout_height="300dp"
         android:layout_below="@id/btWaveFunc">
 
         <ImageView
@@ -45,5 +45,23 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="100dp"
             android:visibility="gone" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp">
+
+        <ImageButton
+            android:id="@+id/nextLabs"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_chevron_right_black_24dp" />
     </FrameLayout>
 </RelativeLayout>

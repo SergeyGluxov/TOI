@@ -1,5 +1,6 @@
 package com.example.wavelet.presenters.wavelet
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.View
 import com.example.wavelet.R
 import com.example.wavelet.models.Function
 import com.example.wavelet.models.Image
+import com.example.wavelet.presenters.sampling.SamplingActivity
 import com.example.wavelet.views.IMainView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
@@ -15,8 +17,7 @@ import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 
 
-class MainActivity : MvpAppCompatActivity(),
-    IMainView {
+class MainActivity : MvpAppCompatActivity(), IMainView {
 
     @InjectPresenter
     lateinit var mainPresenter: MainPresenter
@@ -29,16 +30,17 @@ class MainActivity : MvpAppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainPresenter.image = Image(
-            width,
-            height
-        )
+        mainPresenter.image = Image(width, height)
         btSimpleFunc.setOnClickListener {
             mainPresenter.createSimpleFunc()
         }
         btWaveFunc.setOnClickListener {
             mainPresenter.createWaveletFunc()
             mainPresenter.createWaveletTransform()
+        }
+        nextLabs.setOnClickListener {
+            startActivity(Intent(this, SamplingActivity::class.java))
+
         }
     }
 
