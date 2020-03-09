@@ -12,4 +12,8 @@ interface IMainView : MvpView {
 
     //Вывести Wavelet-преобразование
     fun drawWaveletImage(array: Array<DoubleArray>)
+
+    fun setProgressBar(percent: Int)
+    fun hideProgressBar()
+    fun showProgressBar()
 }

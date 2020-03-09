@@ -11,12 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dip" />
 
-    <ImageView
-        android:id="@+id/ivWavelet"
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:layout_below="@id/btWaveFunc" />
-
     <Button
         android:id="@+id/btSimpleFunc"
         android:layout_width="wrap_content"
@@ -32,4 +26,24 @@
         android:layout_below="@+id/btSimpleFunc"
         android:layout_marginTop="10dp"
         android:text="Wave-вейвлет функция" />
+
+    <FrameLayout
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_below="@id/btWaveFunc">
+
+        <ImageView
+            android:id="@+id/ivWavelet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100dp"
+            android:visibility="gone" />
+    </FrameLayout>
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.example.wavelet.presenters.wavelet
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import com.example.wavelet.R
 import com.example.wavelet.models.Function
 import com.example.wavelet.models.Image
@@ -21,8 +22,8 @@ class MainActivity : MvpAppCompatActivity(),
     lateinit var mainPresenter: MainPresenter
 
     companion object {
-        const val width = 500
-        const val height = 500
+        const val width = 400
+        const val height = 400
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +61,8 @@ class MainActivity : MvpAppCompatActivity(),
     override fun drawWaveletImage(array: Array<DoubleArray>) {
         val bitmap = Bitmap.createBitmap(
             width,
-            height, Bitmap.Config.ARGB_8888);
+            height, Bitmap.Config.ARGB_8888
+        );
         var r: Int
         var g: Int
         var b: Int
@@ -71,5 +73,17 @@ class MainActivity : MvpAppCompatActivity(),
             }
         }
         ivWavelet.setImageBitmap(bitmap)
+    }
+
+    override fun setProgressBar(percent: Int) {
+        progressBar.progress = percent
+    }
+
+    override fun hideProgressBar() {
+        progressBar.visibility = View.GONE
+    }
+
+    override fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
     }
 }

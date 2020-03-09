@@ -1,10 +1,15 @@
 package com.example.wavelet.presenters.wavelet
 
+
 import com.example.wavelet.helpers.HDoubleArray
 import com.example.wavelet.models.Coordinate
 import com.example.wavelet.models.Function
 import com.example.wavelet.models.Image
 import com.example.wavelet.views.IMainView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import kotlin.math.*
@@ -15,9 +20,16 @@ class MainPresenter : MvpPresenter<IMainView>() {
         private const val maxColor = 255
         private const val period = 10 * Math.PI
         var step: Double = period / (200 - 1)
+
     }
 
-    var image = Image(500, 500)
+    var image = Image(400, 400)
+    val matrixCoordinate = Array(image.width) { DoubleArray(image.height) }
+    val dTau = 10 * Math.PI / image.width
+    val dS = (2 - 0.001) / image.height
+    var tau: Double = 0.0
+
+    var s: Double = 0.0
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -55,20 +67,17 @@ class MainPresenter : MvpPresenter<IMainView>() {
         viewState.drawFunc(Function(coordinate))
     }
 
+
     fun createWaveletTransform() {
-        val matrixCoordinate = Array(image.width) { DoubleArray(image.height) }
-        val dTau = 10 * Math.PI / image.width
-        val dS = (2 - 0.001) / image.height
-        var tau: Double
-        var s: Double
-        for (x in 0 until image.width) {
-            for (y in 0 until image.height) {
-                tau = x * dTau
-                s = y * dS + 0.001
-                matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
-            }
+        viewState.showProgressBar()
+        GlobalScope.launch(Dispatchers.Main) {
+            job1()
+            job2()
+            job3()
+            job4()
+            viewState.hideProgressBar()
+            viewState.drawWaveletImage(convertToColor(matrixCoordinate))
         }
-        viewState.drawWaveletImage(convertToColor(matrixCoordinate))
     }
 
     private fun simpleFunc(j: Double): Double {
@@ -77,8 +86,6 @@ class MainPresenter : MvpPresenter<IMainView>() {
         if ((j > 4 * Math.PI) && (j < 8 * Math.PI))
             return atan(cos(0.5 * j)) + 0.5 * sin(5 * j);
         else return sin(5 * j);
-        /*
-        return cos(Math.E.pow(sin(3 * j * 0.33)))*/
     }
 
     private fun waveletFunc(t: Double): Double {
@@ -105,5 +112,50 @@ class MainPresenter : MvpPresenter<IMainView>() {
             }
         }
         return array
+    }
+
+    private suspend fun job1() = withContext(Dispatchers.Default) {
+        for (x in 0 until image.width / 2) {
+            for (y in 0 until image.height / 2) {
+                tau = x * dTau
+                s = y * dS + 0.001
+                matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
+            }
+        }
+        viewState.setProgressBar(25)
+    }
+
+    private suspend fun job2() = withContext(Dispatchers.Default) {
+        for (x in 200 until image.width) {
+            for (y in 200 until image.height) {
+                tau = x * dTau
+                s = y * dS + 0.001
+                matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
+            }
+        }
+        viewState.setProgressBar(50)
+    }
+
+    private suspend fun job3() =
+        withContext(Dispatchers.Default) {
+            for (x in 0 until image.width / 2) {
+                for (y in 200 until image.height) {
+                    tau = x * dTau
+                    s = y * dS + 0.001
+                    matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
+                }
+            }
+            viewState.setProgressBar(75)
+        }
+
+    private suspend fun job4() = withContext(Dispatchers.Default) {
+        for (x in 200 until image.width) {
+            for (y in 0 until image.height / 2) {
+                tau = x * dTau
+                s = y * dS + 0.001
+                matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
+            }
+        }
+        viewState.setProgressBar(100)
     }
 }
