@@ -16,4 +16,5 @@ interface IMainView : MvpView {
     fun setProgressBar(percent: Int)
     fun hideProgressBar()
     fun showProgressBar()
+    fun showTimeSuccess(time: String)
 }

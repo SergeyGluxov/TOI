@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.wavelet.R
 import com.example.wavelet.models.Function
 import com.example.wavelet.models.Image
@@ -33,10 +34,15 @@ class MainActivity : MvpAppCompatActivity(), IMainView {
         btSimpleFunc.setOnClickListener {
             mainPresenter.createSimpleFunc()
         }
+
         btWaveFunc.setOnClickListener {
             mainPresenter.createWaveletFunc()
+        }
+
+        btPicture.setOnClickListener {
             mainPresenter.createWaveletTransform()
         }
+
         nextLabs.setOnClickListener {
             startActivity(Intent(this, SamplingActivity::class.java))
 
@@ -65,8 +71,6 @@ class MainActivity : MvpAppCompatActivity(), IMainView {
             height, Bitmap.Config.ARGB_8888
         );
         var r: Int
-        var g: Int
-        var b: Int
         for (i in 0 until width) {
             for (j in 0 until height) {
                 r = array[i][j].toInt()
@@ -86,5 +90,9 @@ class MainActivity : MvpAppCompatActivity(), IMainView {
 
     override fun showProgressBar() {
         progressBar.visibility = View.VISIBLE
+    }
+
+    override fun showTimeSuccess(time: String) {
+        Toast.makeText(this, time, Toast.LENGTH_SHORT).show()
     }
 }

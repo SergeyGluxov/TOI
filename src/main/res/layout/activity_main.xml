@@ -11,26 +11,60 @@
         android:layout_width="match_parent"
         android:layout_height="200dip" />
 
-    <Button
-        android:id="@+id/btSimpleFunc"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/btnContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/graph"
-        android:layout_marginTop="10dp"
-        android:text="Простая функция" />
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btWaveFunc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btSimpleFunc"
-        android:layout_marginTop="10dp"
-        android:text="Wave-вейвлет функция" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btSimpleFunc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Простая функция" />
+
+            <Button
+                android:id="@+id/btWaveFunc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Wave-функция" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btSombrero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сомбреро" />
+
+            <Button
+                android:id="@+id/btPicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Рисунок" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="500dp"
         android:layout_height="300dp"
-        android:layout_below="@id/btWaveFunc">
+        android:layout_below="@id/btnContainer">
 
         <ImageView
             android:id="@+id/ivWavelet"
