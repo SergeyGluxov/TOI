@@ -7,7 +7,6 @@ import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = OneExecutionStateStrategy::class)
-interface ISamplingView : MvpView {
-    //Построить функцию
-    fun drawFunc(function: Function, @Nullable overSamplingFunc: Function?)
+interface IScaleView : MvpView {
+
 }

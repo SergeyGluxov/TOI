@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".presenters.dpf.DfpActivity"></activity>
         <activity android:name=".presenters.sampling.SamplingActivity" />
+        <activity android:name=".presenters.scale.ScaleActivity" />
         <activity android:name=".presenters.wavelet.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
