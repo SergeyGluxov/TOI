@@ -1,27 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="2"
     tools:context=".presenters.scale.ScaleActivity">
+
+    <Button
+        android:id="@+id/btSelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:text="Выбрать фото" />
+
+    <LinearLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="Масштабирование:"
+            android:textSize="24dp" />
+
+
+        <ImageView
+            android:id="@+id/ivNoScale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+
+        <ImageView
+            android:id="@+id/ivScale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_margin="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/plusScale"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#7CB342"
+                android:text="+"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/percentScale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:text="100%">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/minusScale"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#000000"
+                android:text="-"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/nextLab"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_gravity="bottom|center"
             android:background="@null"
             android:clickable="true"
             android:focusable="true"
             android:scaleType="center"
             android:src="@drawable/ic_chevron_right_black_24dp" />
+
     </FrameLayout>
-</LinearLayout>
+</RelativeLayout>

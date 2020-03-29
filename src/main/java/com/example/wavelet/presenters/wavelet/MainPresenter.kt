@@ -39,8 +39,8 @@ class MainPresenter : MvpPresenter<IMainView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         createSimpleFunc()
-        createWaveletTransformBefore()
-        createWaveletTransformBefore()
+        //createWaveletTransformBefore()
+       // createWaveletTransformBefore()
     }
 
     //-----------------------Построение функций-----------------------------------------------------
@@ -74,7 +74,6 @@ class MainPresenter : MvpPresenter<IMainView>() {
         viewState.drawFunc(Function(coordinate))
     }
 
-    private var job: Job = Job()
     private var scope = CoroutineScope(newFixedThreadPoolContext(4, "synchronizationPool"))
 
     fun createWaveletTransformBefore() {
@@ -193,73 +192,5 @@ class MainPresenter : MvpPresenter<IMainView>() {
         }
         Log.d(TAG, "job4")
         viewState.setProgressBar(100)
-    }
-
-    //---------------------------------------------------------------------------------------------
-    private val sharedCounterLock = ReentrantLock()
-
-    fun updateCounterIfNecessary(w: Int, h: Int) {
-        if (w == 1) {
-            try {
-                sharedCounterLock.lock()
-                for (x in 0 until image.width / 2) {
-                    for (y in 0 until image.height / 2) {
-                        tau = x * dTau
-                        s = y * dS + 0.001
-                        matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
-                    }
-                }
-                Log.d("JOB1", "step")
-                viewState.setProgressBar(25)
-            } finally {
-                sharedCounterLock.unlock()
-            }
-        } else if (w == 2) {
-            try {
-                sharedCounterLock.lock()
-                for (x in 200 until image.width) {
-                    for (y in 200 until image.height) {
-                        tau = x * dTau
-                        s = y * dS + 0.001
-                        matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
-                    }
-                }
-                Log.d("JOB2", "step")
-                viewState.setProgressBar(50)
-            } finally {
-                sharedCounterLock.unlock()
-            }
-
-        } else if (w == 3) {
-            try {
-                sharedCounterLock.lock()
-                for (x in 0 until image.width / 2) {
-                    for (y in 200 until image.height) {
-                        tau = x * dTau
-                        s = y * dS + 0.001
-                        matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
-                    }
-                }
-                Log.d("JOB3", "step")
-                viewState.setProgressBar(75)
-            } finally {
-                sharedCounterLock.unlock()
-            }
-
-        } else if (w == 4) {
-            try {
-                sharedCounterLock.lock()
-                for (x in 200 until image.width) {
-                    for (y in 0 until image.height / 2) {
-                        tau = x * dTau
-                        s = y * dS + 0.001
-                        matrixCoordinate[x][y] += 1.0 / sqrt(abs(s)) * integral(tau, s)
-                    }
-                }
-                viewState.setProgressBar(100)
-            } finally {
-                sharedCounterLock.unlock()
-            }
-        }
     }
 }
