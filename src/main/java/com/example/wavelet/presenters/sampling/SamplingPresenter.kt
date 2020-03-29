@@ -26,14 +26,12 @@ class SamplingPresenter : MvpPresenter<ISamplingView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        //createSimpleFuncDraw()
         oversampling(createSimpleFunc(), 0)
     }
 
     override fun attachView(view: ISamplingView?) {
         super.attachView(view)
         oversampling(createSimpleFunc(), 0)
-        //createSimpleFuncDraw()
     }
 
     private fun simpleFunc(j: Double): Double {
